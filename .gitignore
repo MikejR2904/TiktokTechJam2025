@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VS Code settings
+.vscode/
+
+# Data files
+*.csv
+*.tsv
+*.json
+*.xlsx
+*.parquet
+
+# Model artifacts
+*.pt
+*.pth
+*.h5
+*.joblib
+*.pkl
+
+# Hugging Face cache
+~/.cache/huggingface/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+.env
