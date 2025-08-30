@@ -5,7 +5,6 @@ from src.data.preprocess_data import clean_text, detect_lang, translate_to_engli
 def run_preprocessing(input_path: str, output_path: str):
     try:
         df = pd.read_csv(input_path)
-        print(f"✅ Loaded raw data from {input_path}")
     except FileNotFoundError:
         print(f"❌ Error: The file {input_path} was not found.")
         return
@@ -20,7 +19,6 @@ def run_preprocessing(input_path: str, output_path: str):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
     df.to_csv(output_path, index=False)
-    print(f"✅ Data preprocessing complete! Processed data saved to {output_path}")
 
 if __name__ == "__main__":
     raw_data_path = "src/data/data_sources/KaggleReviews.csv"

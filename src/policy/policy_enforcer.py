@@ -1,4 +1,4 @@
-import re
+import re, json
 import pandas as pd
 from textblob import TextBlob
 from transformers import pipeline
@@ -15,7 +15,6 @@ class PolicyEnforcer:
         self.bad_words = {"shit", "fuck", "damn", "bitch", "idiot", "stupid"}
         self.ad_keywords = {"visit", "promo", "discount", "buy now", "sale"}
         self.rant_keywords = {"never been", "didn’t visit", "not visited", "not gone", "haven’t gone"}
-
     # ---------------- Rule-Based Checks ----------------
 
     def check_profanity(self, text):
@@ -38,7 +37,7 @@ class PolicyEnforcer:
         return (rating >= 4 and sentiment < -0.2) or (rating <= 2 and sentiment > 0.2)
 
     def check_duplicates(self, df):
-        return df.duplicated(subset=["author_name", "text"], keep=False)
+        return df.duplicated(subset=["user_name", "text"], keep=False)
 
     # ---------------- ML-Based Checks ----------------
 
@@ -83,3 +82,43 @@ class PolicyEnforcer:
         df["has_violation"] = df[violation_cols].any(axis=1)
 
         return df
+    
+    # def enforce_with_llm(self, df):
+    #     violations_data = []
+
+    #     for _, row in df.iterrows():
+    #         text = row["text_en"]
+    #         rating = row["rating"]
+
+    #         prompt = f"""
+    #             You are a content policy enforcer. 
+    #             Given the review text and rating, return a JSON object where each key is a policy and the value is true/false.
+
+    #             Policies:
+    #             {json.dumps(self.policies, indent=2)}
+
+    #             Review:
+    #             "{text}"
+    #             Rating: {rating}
+
+    #             Answer ONLY in JSON, e.g.:
+    #             {{"profanity": false, "advertisement": true, ...}}
+    #         """
+
+    #         response = self.llm(prompt, max_new_tokens=256, do_sample=False)
+    #         try:
+    #             parsed = json.loads(response[0]["generated_text"].split("{",1)[1].rsplit("}",1)[0].join(["{","}"]))
+    #         except Exception:
+    #             parsed = {k: False for k in self.policies}  # fallback: no violations
+
+    #         violations_data.append(parsed)
+
+    #     # Merge back into df
+    #     violations_df = pd.DataFrame(violations_data)
+    #     df = pd.concat([df.reset_index(drop=True), violations_df], axis=1)
+    #     df["has_violation"] = df[list(self.policies.keys())].any(axis=1)
+    #     df["policy_violation_type"] = df.apply(
+    #         lambda r: [p for p in self.policies if r[p]], axis=1
+    #     )
+
+    #     return df

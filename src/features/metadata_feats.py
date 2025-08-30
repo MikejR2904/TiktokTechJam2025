@@ -19,7 +19,9 @@ def extract_metadata_features(df: pd.DataFrame):
     df["rating"] = pd.to_numeric(df["rating"], errors="coerce")
 
     # Category encoding for rating
-    df["rating_category_encoded"] = df["rating_category"].astype("category").cat.codes
+    if "rating_category" in df.columns:
+        df["rating_category_encoded"] = df["rating_category"].astype("category").cat.codes
+        
     df["language_encoded"] = df["language"].astype("category").cat.codes
 
     return df
