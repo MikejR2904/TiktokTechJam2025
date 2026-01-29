@@ -36,6 +36,6 @@ class User(BaseModel):
     user_id: str = Field(..., description="User unique identifier")
     name: Optional[str] = None
     reviews: Optional[List[str]] = None
-    # Track user locations
+    # Track user locationsplac
     lat: Optional[float] = None
     lng: Optional[float] = None

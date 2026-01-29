@@ -27,7 +27,6 @@ From the TikTok Tech Jam 2025 challenge prompt:
 
 - Google Maps API
 - Google Places API
-- OpenAI GPT-4o
 
 ## 📚 Libraries & Frameworks
 
@@ -45,20 +44,12 @@ From the TikTok Tech Jam 2025 challenge prompt:
 - Manually labeled review samples
 - Business metadata (location, category, rating)
 
-## 📁 Directory Structure
-documents/tiktoktechjam2025/
-├── data/ # Sample reviews + business metadata
-├── notebooks/ # Prototyping, model experiments
-├── src/ # Core moderation engine + enrichment modules
-├── configs/ # Rule definitions + model parameters
-└── README.md # You're here
-
 ## ⚙️ Setup Instructions
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/tiktoktechjam2025.git
-   cd tiktoktechjam2025
+   git clone https://github.com/MikejR2904/TiktokTechJam2025.git
+   cd TiktokTechJam2025
 
 2. Install dependencies:
     ```bash
@@ -69,6 +60,11 @@ documents/tiktoktechjam2025/
 4. Run the moderation pipeline:
     ```bash
     uvicorn src.api.app:app --reload
+
+## Current Progress
+
+Currently, this project is being expanded to actually build an LLM filter to filter rants. 
+The systems design logic can be found on : https://www.figma.com/board/NMJUX2iiMMsU9Ts4gabLgI/TiktokTechJam2025?node-id=0-1&t=WDJzDxi6WaEZcUgc-1
 
 
 
